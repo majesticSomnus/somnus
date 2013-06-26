@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<OperDepartmentList>
+  <OperDepartment>
+    <ID>1</ID>
+    <Name>宿迁作业部</Name>
+    <Sort>0</Sort>
+  </OperDepartment>
+  <OperDepartment>
+    <ID>2</ID>
+    <Name>宝鸡作业部</Name>
+    <Sort>1</Sort>
+  </OperDepartment>
+  <OperDepartment>
+    <ID>3</ID>
+    <Name>望都作业部</Name>
+    <Sort>2</Sort>
+  </OperDepartment>
+  <OperDepartment>
+    <ID>4</ID>
+    <Name>通辽作业部</Name>
+    <Sort>3</Sort>
+  </OperDepartment>
+</OperDepartmentList>

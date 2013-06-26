@@ -1,0 +1,181 @@
+﻿@{
+    string control = string.IsNullOrEmpty(@PageData["control"]) ? string.Empty : (@PageData["control"] as string).ToLower();
+    string action = string.IsNullOrEmpty(@PageData["action"]) ? string.Empty : (@PageData["action"] as string).ToLower();
+}
+<div id="col1_content" class="clearfix">
+    @switch (control)
+    {
+        case "userinfo":
+            if (action.Equals("index"))
+            {
+        <ul class="vlist">
+            <li class="active"><span>用户列表</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("用户列表", "index", "userInfo")
+            </li>
+        </ul>
+            }
+            if (action.Equals("adduserinfo"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>添加用户</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("添加用户", "addUserInfo", "userInfo")
+            </li>
+        </ul>
+            }
+            if (action.Equals("edituserinfo"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>修改用户</span> </li>
+        </ul>
+            }
+            if (action.Equals("changepassword"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>修改密码</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("修改密码", "changePassword", "userInfo")
+            </li>
+        </ul>
+            }
+            break;
+        case "customer":
+            if (action.Equals("index"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>客户列表</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("客户列表", "index", "customer")
+            </li>
+        </ul>
+            }
+            if (action.Equals("create"))
+            {
+        <ul class="vlist">
+            <li class="active"><span>添加客户</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("添加客户", "create", "customer")
+            </li>
+        </ul>
+            }
+            if (action.Equals("edit"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>修改客户</span> </li>
+        </ul>
+            }
+            break;
+        case "transport":
+            if (action.Equals("index"))
+            {
+        <ul class="vlist">
+            <li class="active"><span>运输列表</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("运输报表", "index", "transport")
+            </li>
+        </ul>
+            }
+            if (action.Equals("create"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>添加运输记录</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("添加运输记录", "create", "transport")
+            </li>
+        </ul>
+            }
+            if (action.Equals("edit"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>修改运输记录</span> </li>
+        </ul>
+            }
+            break;
+        case "cost":
+            if (action.Equals("index"))
+            {
+        <ul class="vlist">
+            <li class="active"><span>费用列表</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("费用列表", "index", "cost")
+            </li>
+        </ul>
+            }
+            if (action.Equals("create"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>添加费用记录</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("添加费用记录", "create", "cost")
+            </li>
+        </ul>
+            }
+                        if (action.Equals("chart"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>费用报表</span> </li>
+        </ul>
+            }
+            else
+            { 
+        <ul class="vlist">
+            <li>
+                @Html.ActionLink("费用报表", "chart", "cost")
+            </li>
+        </ul>
+            }
+            if (action.Equals("edit"))
+            { 
+        <ul class="vlist">
+            <li class="active"><span>修改费用记录</span> </li>
+        </ul>
+            }
+            break;
+    }
+</div>

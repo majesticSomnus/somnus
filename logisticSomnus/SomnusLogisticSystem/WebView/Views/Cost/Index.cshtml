@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "费用列表";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@using SomnusLogistic.Model
+@using Webdiyer.WebControls.Mvc
+@model PagedList<Cost>
+@section Head{
+ <link rel="stylesheet" type="text/css" media="screen" href="@Url.Content("~/Content/css/page.css")")" />
+    <style type="text/css">
+        #costForm
+        {
+            width: 100%;
+        }
+        form.cmxform label
+        {
+            width: 55px;
+        }
+    </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "cost" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "cost", action = "index" })
+}
+@using (Html.BeginForm("index", "cost", FormMethod.Get, new { id = "costForm", @class = "cmxform" }))
+{
+    <fieldset>
+        <legend>查询</legend>
+        <p>
+        <label style="width:70px;">
+        归属作业部
+        </label>
+        @Html.DropDownList("OperDepartmentID", "全部")
+        &nbsp;&nbsp;&nbsp;
+            <label>
+                开始时间
+            </label>
+            @Html.TextBox("BeginDate","", new { @class = "Wdate", style = "width:120px;" })
+            &nbsp;&nbsp;&nbsp;
+            <label>
+                结束时间
+            </label>
+            @Html.TextBox("EndDate","", new { @class = "Wdate", width = "150", style = "width:120px;" })
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="查询" class="cursor" />
+        </p>
+    </fieldset>
+}
+@{
+    Html.RenderPartial("UCJqCostList", Model); 
+}
+@section Script{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Content/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#BeginDate").click(
+        function () {
+            WdatePicker({ dateFmt: 'yyyy-MM-dd' });
+        });
+        $("#EndDate").click(function () {
+            WdatePicker({ dateFmt: 'yyyy-MM-dd', minDate:
+'#F{$dp.$D(\'BeginDate\')}'
+            });
+        });
+
+        $("#OperDepartmentID option").each(function () {
+            $(this).attr({ 'title': $(this).html() });
+        });
+        $("#OperDepartmentID").change(function () {
+            $('#costForm').submit();
+        });
+
+
+        function deleteCost(costID) {
+            if (confirm("你确定要删除这条费用记录吗?") == false)
+                return;
+            $.post(urlPrefix + "cost/Delete", { "id": costID }, function (flag) {
+                if (flag) {
+                    alert("操作成功");
+                    location.href = urlPrefix + "cost";
+                } else {
+                    alert("对不起,出错了");
+                }
+            });
+        }
+    </script>
+}

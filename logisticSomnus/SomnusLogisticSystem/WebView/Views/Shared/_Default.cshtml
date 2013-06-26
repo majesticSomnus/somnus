@@ -1,0 +1,122 @@
+﻿@using WebView.Core
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/css/layout.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@Url.Content("~/Content/css/screen.css")")" />
+    @RenderSection("Head")
+    <style type="text/css">
+        #content
+        {
+            margin: 0em auto;
+            width: 370px;
+            padding: 10px 0 10px 0;
+            text-align: left; /* Win IE5 */
+        }
+    </style>
+    <script type="text/javascript">
+        var urlPrefix = "@Url.Content("~")";
+    </script>
+</head>
+<body>
+    <div class="page_margins">
+        <div class="page">
+            <div id="header">
+                <div id="topnav">
+              
+                <label>@ViewBag.RealName,你好</label>
+
+                    <span>
+                        @Html.ActionLink("切换用户", "change", "Login")
+                        |
+                        @Html.ActionLink("退出", "logout", "Login")
+                    </span>
+                </div>
+                <h1>
+                    物流管理系统
+                </h1>
+                <span style="margin: 10px;"><a href="http://www.do4best.com/logistic">张哥</a></span>
+            </div>
+            <!-- begin: main navigation #nav -->
+            <div id="nav">
+                <div class="hlist">
+                    @RenderSection("Navigation", false)
+                </div>
+            </div>
+            <!-- end: main navigation -->
+            <!-- begin: main content area #main -->
+            <div id="main">
+                <!-- begin: #col1 - first float column -->
+                <div id="col1">
+                    @RenderSection("NavigationItems", false)
+                </div>
+                <!-- end: #col1 -->
+                <!-- begin: #col3 static column -->
+                <div id="col3">
+                    <div id="col3_content" class="clearfix">
+                        @RenderBody()
+                    </div>
+                    <div id="ie_clearing">
+                        &nbsp;</div>
+                    <!-- End: IE Column Clearing -->
+                </div>
+                <!-- end: #col3 -->
+            </div>
+            <!-- end: #main -->
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer_content">
+            Copyright by <a href="http://www.do4best.com/">张哥物流</a>
+            <br />
+            物流管理系统
+        </div>
+    </div>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/global.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/messages_cn.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            jQuery.validator.addMethod("telphoneValid", function (value, element) {
+                var tel = /^1[3,5,8]\d{9}$/;
+                return tel.test(value) || this.optional(element);
+            }, "请输入正确的手机号码");
+            jQuery.validator.addMethod("MoneyValid", function (value, element) {
+                var reg = /^\d+(\.\d+)?$/;
+                return reg.test(value) || this.optional(element);
+            }, "请输入正确的金额");
+            jQuery.validator.addMethod("PieceValid", function (value, element) {
+                var reg = /^\d+$/;
+                return reg.test(value)&&value>0 || this.optional(element);
+            }, "请输入正确的件数");
+            jQuery.validator.addMethod("CustomerValid", function (value, element) {
+                if (!value) {
+                    return false;
+                }
+                return true;
+            }, "请选择客户");
+            jQuery.validator.addMethod("RatifyValid", function (value, element) {
+                if (!value) {
+                    return false;
+                }
+                return true;
+            }, "请选择批准人");
+            jQuery.validator.addMethod("ExecutorValid", function (value, element) {
+                if (!value) {
+                    return false;
+                }
+                return true;
+            }, "请选择执行人");
+            jQuery.validator.addMethod("OperDepartmentValid", function (value, element) {
+                if (!value) {
+                    return false;
+                }
+                return true;
+            }, "请选择归属作业部");
+        });
+    </script>
+    @RenderSection("Script")
+</body>
+</html>

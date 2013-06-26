@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "添加客户信息";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@model SomnusLogistic.Model.Customer
+@section Head{
+    <style type="text/css">
+        #CreateForm
+        {
+            width: 670px;
+        }
+    </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "customer" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "customer", action = "create" })
+}
+@using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { id = "CreateForm", @class = "cmxform" }))
+{
+    <fieldset>
+        <legend>添加客户信息</legend>
+        @Html.ValidationSummary()
+                <p>
+                <span class="red">*</span>
+            @Html.LabelFor(c => c.OperDepartmentID)
+            @Html.DropDownList("OperDepartmentID", "请选择归属作业部")
+        </p>
+        <p>
+        <span class="red">*</span>
+            <label>
+                客户名称
+            </label>
+            @Html.TextBoxFor(c => c.CustomerName)
+        </p>
+        <p>
+        <span class="red">*</span>
+            <label>
+                到站
+            </label>
+            @Html.TextBoxFor(c => c.Station)
+        </p>
+        <p>
+        <span class="red">*</span>
+            <label>
+                收货单位
+            </label>
+            @Html.TextBoxFor(c => c.CargoUnit)
+        </p>
+        <p>
+        <span class="red">*</span>
+            <label>
+                联系人
+            </label>
+            @Html.TextBoxFor(c => c.Linkman)
+        </p>
+        <p>
+        <span class="red">*</span>
+            <label>
+                联系人手机
+            </label>
+            @Html.TextBoxFor(c => c.LinkPhone)
+        </p>
+                <p>
+            <label>
+                固定电话
+            </label>
+            @Html.TextBoxFor(c => c.Fphone)
+        </p>
+        <p>
+    
+            <label>
+                <span class="red">*</span>
+                邮寄地址
+            </label>
+            @Html.TextAreaFor(c => c.Address, new { @class = "multi-line" })
+        </p>
+        <p>
+            <label>
+                备注
+            </label>
+            @Html.TextAreaFor(c => c.Memo, new { @class = "multi-line" })
+        </p>
+        <p>
+            <input type="submit" class="submit" value="确定" />
+            <input type="reset" class="cursor" value="重写" />
+        </p>
+    </fieldset>
+}
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            $("#CreateForm").validate({
+                rules: {
+                    CustomerName: "required",
+                    Station: "required",
+                    CargoUnit: "required",
+                    Address: "required",
+                    Linkman:"required",
+                    LinkPhone: {
+                        required: true,
+                        telphoneValid: true,
+                        rangelength: [11, 11]
+                    },
+                    OperDepartmentID: {
+                        OperDepartmentValid: true
+                    }
+                },
+                messages: {
+                    CustomerName: "客户名称不能为空",
+                    Station: "到站不能为空",
+                    CargoUnit: "收货单位不能为空",
+                    Address: "邮寄地址不能为空",
+                    Linkman:"联系人不能为空",
+                    LinkPhone: {
+                        required:"联系人手机不能为空"
+                    }
+                }
+            });
+        });
+    </script>
+}

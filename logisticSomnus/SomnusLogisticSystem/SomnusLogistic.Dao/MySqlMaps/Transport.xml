@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="SomnusLogistic.Dao.Transport"
+  xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <alias>
+    <typeAlias alias="Transport" type="SomnusLogistic.Model.Transport, SomnusLogistic.Model"/>
+  </alias>
+
+  <statements>
+    <select id="Count" parameterClass="map" resultClass="int">
+      select count(1) from userinfo where IsDelete=0
+    </select>
+
+    <insert id="Insert" parameterClass="Transport" resultClass="int">
+      INSERT INTO `transport`
+      (
+      UserID,
+      `CustomerID`,
+      `SendPoint`,
+      `SendDate`,
+      `Tonnage`,
+      `TrainNumber`,
+      `Ticket`,
+      `Cost1`,
+      `Cost2`,
+      `BigCost`,
+      `StationCost`,
+      `TotalCost`,
+      `CustomerPay`,
+      `Profit`,
+      `ArriveDate`,
+      `ArrivePoint`,
+      `CargoLossDetail`,
+      `CargoLossPrice`,
+      `IsDelete`,
+      `CreateDate`,
+      CarNumber,
+      Piece,
+      ProtectCost,
+      ExpressCost
+      )
+      VALUES
+      (
+      #UserID#
+      ,
+      #CustomerID#
+      ,
+      #SendPoint#
+      ,
+      #SendDate#
+      ,
+      #Tonnage#
+      ,
+      #TrainNumber#
+      ,
+      #Ticket#
+      ,
+      #Cost1#
+      ,
+      #Cost2#
+      ,
+      #BigCost#
+      ,
+      #StationCost#
+      ,
+      #TotalCost#
+      ,
+      #CustomerPay#
+      ,
+      #Profit#
+      ,
+      #ArriveDate#
+      ,
+      #ArrivePoint#
+      ,
+      #CargoLossDetail#
+      ,
+      #CargoLossPrice#
+      ,
+      #IsDelete#
+      ,
+      #CreateDate#
+      ,
+      #CarNumber#,
+      #Piece#,
+      #ProtectCost#,
+      #ExpressCost#
+      );
+      select @@IDENTITY as value
+    </insert>
+
+    <update id="Delete" parameterClass="int">
+      update  transport set IsDelete=1 where TransportID=#transport#
+    </update>
+
+    <update id="Update" parameterClass="Transport">
+      UPDATE `transport`
+      SET
+      `UserID` = #UserID#,
+      `CustomerID` = #CustomerID#,
+      `SendPoint` = #SendPoint#,
+      `SendDate` = #SendDate#,
+      `Tonnage` = #Tonnage#,
+      `TrainNumber` = #TrainNumber#,
+      `Ticket` = #Ticket#,
+      `Cost1` = #Cost1#,
+      `Cost2` = #Cost2#,
+      `BigCost` = #BigCost#,
+      `StationCost` = #StationCost#,
+      `TotalCost` = #TotalCost#,
+      `CustomerPay` = #CustomerPay#,
+      `Profit` = #Profit#,
+      `ArriveDate` = #ArriveDate#,
+      `ArrivePoint` = #ArrivePoint#,
+      `CargoLossDetail` = #CargoLossDetail#,
+      `CargoLossPrice` = #CargoLossPrice#,
+      `IsDelete` = #IsDelete#,
+      `CreateDate` = #CreateDate#,
+      CarNumber= #CarNumber#,
+      Piece= #Piece#,
+      ProtectCost= #ProtectCost#,
+      ExpressCost= #ExpressCost#
+      where `TransportID` = #TransportID#
+    </update>
+
+    <select id="Select" parameterClass="map" resultClass="Transport">
+      SELECT
+      `TransportID`,
+      `UserID`,
+      `CustomerID`,
+      `SendPoint`,
+      `SendDate`,
+      `Tonnage`,
+      `TrainNumber`,
+      `Ticket`,
+      `Cost1`,
+      `Cost2`,
+      `BigCost`,
+      `StationCost`,
+      `TotalCost`,
+      `CustomerPay`,
+      `Profit`,
+      `ArriveDate`,
+      `ArrivePoint`,
+      `CargoLossDetail`,
+      `CargoLossPrice`,
+      `IsDelete`,
+      `CreateDate`,
+      CarNumber,
+      Piece,
+      ProtectCost,
+      ExpressCost
+      FROM `transport` where isDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        <![CDATA[TransportID = #ID#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        t.OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+    </select>
+
+    <select id="SelectPager" parameterClass="map" resultClass="Transport">
+      SELECT
+      `TransportID`,
+      `UserID`,
+      `CustomerID`,
+      `SendPoint`,
+      `SendDate`,
+      `Tonnage`,
+      `TrainNumber`,
+      `Ticket`,
+      `Cost1`,
+      `Cost2`,
+      `BigCost`,
+      `StationCost`,
+      `TotalCost`,
+      `CustomerPay`,
+      `Profit`,
+      `ArriveDate`,
+      `ArrivePoint`,
+      `CargoLossDetail`,
+      `CargoLossPrice`,
+      `IsDelete`,
+      `CreateDate`,
+      CarNumber,
+      Piece,
+      ProtectCost,
+      ExpressCost
+      FROM `transport` where isDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        <![CDATA[TransportID = #TransportID#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        c.OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="CustomerID">
+        <![CDATA[CustomerID = #CustomerID#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="BeginRow">
+        <![CDATA[limit #BeginRow#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="EndRow">
+        <![CDATA[ , #EndRow#]]>
+      </isPropertyAvailable>
+    </select>
+
+    <select id="SelectFull" parameterClass="map" resultClass="Transport">
+      SELECT
+      t.`TransportID`,
+      t.`UserID`,
+      t.`SendPoint`,
+      t.`SendDate`,
+      t.`Tonnage`,
+      t.`TrainNumber`,
+      t.`Ticket`,
+      t.`Cost1`,
+      t.`Cost2`,
+      t.`BigCost`,
+      t.`StationCost`,
+      t.`TotalCost`,
+      t.`CustomerPay`,
+      t.`Profit`,
+      t.`ArriveDate`,
+      t.`ArrivePoint`,
+      t.`CargoLossDetail`,
+      t.`CargoLossPrice`,
+      t.`IsDelete`,
+      t.`CreateDate`,
+      t.CarNumber,
+      t.Piece,
+      t.ProtectCost,
+      t.ExpressCost,
+      c.CustomerID as `Customer.CustomerID`,
+      c.CustomerName as `Customer.CustomerName`,
+      c.Linkman as `Customer.Linkman`,
+      c.LinkPhone as `Customer.LinkPhone`,
+      c.Station as `Customer.Station`,
+      c.CargoUnit as `Customer.CargoUnit`,
+      c.OperDepartmentID as `Customer.OperDepartmentID`
+      FROM `transport` t left join Customer c
+      on t.CustomerID=c.customerID
+      where t.IsDelete=0
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        c.OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="ID">
+        <![CDATA[t.TransportID = #ID#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="CustomerID">
+        <![CDATA[t.CustomerID = #CustomerID#]]>
+      </isPropertyAvailable>
+    </select>
+    
+    
+    <select id="SelectFullPager" parameterClass="map" resultClass="Transport">
+      SELECT
+      t.`TransportID`,
+      t.`UserID`,
+      t.`SendPoint`,
+      t.`SendDate`,
+      t.`Tonnage`,
+      t.`TrainNumber`,
+      t.`Ticket`,
+      t.`Cost1`,
+      t.`Cost2`,
+      t.`BigCost`,
+      t.`StationCost`,
+      t.`TotalCost`,
+      t.`CustomerPay`,
+      t.`Profit`,
+      t.`ArriveDate`,
+      t.`ArrivePoint`,
+      t.`CargoLossDetail`,
+      t.`CargoLossPrice`,
+      t.`IsDelete`,
+      t.`CreateDate`,
+      t.CarNumber,
+      t.Piece,
+      t.ProtectCost,
+      t.ExpressCost,
+      c.CustomerID as `Customer.CustomerID`,
+      c.CustomerName as `Customer.CustomerName`,
+      c.Linkman as `Customer.Linkman`,
+      c.LinkPhone as `Customer.LinkPhone`,
+      c.Station as `Customer.Station`,
+      c.CargoUnit as `Customer.CargoUnit`,
+      c.OperDepartmentID as `Customer.OperDepartmentID`
+      FROM `transport` t left join Customer c
+      on t.CustomerID=c.customerID
+      where t.IsDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        <![CDATA[t.TransportID = #ID#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        c.OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="CustomerID">
+        <![CDATA[t.CustomerID = #CustomerID#]]>
+      </isPropertyAvailable>
+    </select>
+
+  </statements>
+
+</sqlMap>

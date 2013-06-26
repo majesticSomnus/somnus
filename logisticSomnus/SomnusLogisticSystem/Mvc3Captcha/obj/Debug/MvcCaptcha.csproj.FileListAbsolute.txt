@@ -1,0 +1,5 @@
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\bin\Debug\MvcCaptcha.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\bin\Debug\MvcCaptcha.pdb
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\obj\Debug\ResolveAssemblyReference.cache
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\obj\Debug\MvcCaptcha.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\obj\Debug\MvcCaptcha.pdb

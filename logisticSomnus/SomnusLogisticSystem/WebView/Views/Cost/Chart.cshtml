@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "费用报表";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@using SomnusLogistic.Model
+@section Head{
+    <style type="text/css">
+        #costForm
+        {
+            width: 100%;
+        }
+        form.cmxform label
+        {
+            width: 55px;
+        }
+    </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "cost" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "cost", action = "chart" })
+}
+@{
+    object beginDate = ViewBag.BeginDate;
+    object endDate = ViewBag.EndDate;
+    int dptID = ViewBag.DptID == null ? 0 : Convert.ToInt32(ViewBag.DptID);
+    bool isShowExecutor = ViewBag.IsShowExecutor == null ? false : Convert.ToBoolean(ViewBag.IsShowExecutor);
+}
+@using (Html.BeginForm("chart", "cost", FormMethod.Post, new { id = "costForm", @class = "cmxform" }))
+{
+    <fieldset>
+        <legend>查询</legend>
+        <p>
+            <label style="width: 70px;">
+                归属作业部
+            </label>
+            @Html.DropDownList("OperDepartmentID", "全部")
+            <label>
+                报表展示
+            </label>
+            @Html.DropDownList("ShowID")
+            &nbsp;&nbsp;&nbsp;
+            <label style="width: 100px;">
+                是否显示执行人
+            </label>
+            @Html.DropDownList("ShowExecutor")
+            <label>
+                开始时间
+            </label>
+            @Html.TextBox("BeginDate", beginDate, new { @class = "Wdate", style = "width:120px;" })
+            &nbsp;&nbsp;&nbsp;
+            <label>
+                结束时间
+            </label>
+            @Html.TextBox("EndDate", endDate, new { @class = "Wdate", width = "150", style = "width:120px;" })
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="查询" class="cursor" />
+        </p>
+    </fieldset>
+}
+<center>
+    <div id="chartView">
+    </div>
+</center>
+@{
+    List<CostStat> list = ViewBag.StatList;
+}
+@if (list != null && list.Count > 0)
+{ 
+    <table id="somnus" rules="rows" class="full" style="border-collapse: collapse; width: 100%">
+        <tr>
+            @if (dptID != 0)
+            {
+                <th>
+                    归属作业部
+                </th>
+            }
+            <th scope="col">
+                日期
+            </th>
+            @if (isShowExecutor)
+            { 
+                <th>
+                    执行人
+                </th>
+            }
+            <th scope="col">
+                费用
+            </th>
+        </tr>
+        @foreach (CostStat stat in list)
+        { 
+            <tr>
+                @if (dptID != 0)
+                {
+                    <td>
+                        @stat.OperDepartment.Name
+                    </td>
+                }
+                <td>
+                    @stat.Date
+                </td>
+                @if (isShowExecutor)
+                { 
+                    <td>
+                        @stat.ExecutorInfo.RealName
+                    </td>
+                }
+                <td>
+                    @stat.Money
+                </td>
+            </tr>
+        }
+        <tr>
+            @if (isShowExecutor && dptID != 0)
+            { 
+                <td colspan="3">
+                    总计
+                </td>
+            }
+            else if (isShowExecutor || dptID != 0)
+            { 
+                <td colspan="2">
+                    总计
+                </td>
+            }
+            else
+            { 
+                <td>
+                    总计
+                </td>
+            }
+            <td>
+                @ViewBag.TotalDateMoney
+            </td>
+        </tr>
+    </table>
+}
+@section Script{
+    <script src="@Url.Content("~/Content/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Chart/FusionCharts.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/global.js")")"></script>
+    <script type="text/javascript">
+        $("#BeginDate").click(
+        function () {
+            WdatePicker({ dateFmt: 'yyyy-MM-dd' });
+        });
+        $("#EndDate").click(function () {
+            WdatePicker({ dateFmt: 'yyyy-MM-dd', minDate:
+'#F{$dp.$D(\'BeginDate\')}'
+            });
+        });
+
+      $("#OperDepartmentID option").each(function () {
+            $(this).attr({ 'title': $(this).html() });
+        });
+        $("#OperDepartmentID").change(function () {
+            $('#costForm').submit();
+        });
+
+        $("#ShowID option").each(function () {
+            $(this).attr({ 'title': $(this).html() });
+        });
+        $("#ShowID").change(function () {
+            $('#costForm').submit();
+        });
+
+       $("#ShowExecutor option").each(function () {
+            $(this).attr({ 'title': $(this).html() });
+        });
+        $("#ShowExecutor").change(function () {
+            $('#costForm').submit();
+        });
+
+        $(function () { 
+                var xmlData = "@ViewBag.XML";
+                if(!xmlData)
+                {
+                    $("#chartView").html("没有数据显示");
+                }else
+                {
+                var myChart = new FusionCharts("@Url.Content("~/Chart/MSColumn3DLineDY.swf")", "myChartId", "100%", "400", "0", "0");
+                myChart.setDataXML(xmlData);
+                myChart.render("chartView");
+                }
+
+                HighlightTableRows("somnus");
+        });
+    </script>
+}

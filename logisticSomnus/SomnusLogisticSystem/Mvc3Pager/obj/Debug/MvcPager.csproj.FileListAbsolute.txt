@@ -1,0 +1,5 @@
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Pager\bin\Debug\MvcPager.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Pager\bin\Debug\MvcPager.pdb
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Pager\obj\Debug\ResolveAssemblyReference.cache
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Pager\obj\Debug\MvcPager.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Pager\obj\Debug\MvcPager.pdb

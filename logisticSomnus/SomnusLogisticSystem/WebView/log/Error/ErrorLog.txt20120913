@@ -1,0 +1,74 @@
+
+日志时间：2012-09-13 14:25:19,578 [9] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.CustomerID,        c.CustomerName as Customer.CustomerName,        c.Linkman as' at line 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.Commands.DbCommandDecorator.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList[T](RequestScope request, ISqlMapSession session, Object parameterObject, IList`1 resultObject, RowDelegate`1 rowDelegate)
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList[T](ISqlMapSession session, Object parameterObject)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.TransportDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.TransPort>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 55 
+
+日志时间：2012-09-13 14:31:53,099 [11] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+IBatisNet.DataMapper.Exceptions.DataMapperException: This SQL map does not contain a MappedStatement named SomnusLogistic.Dao.Transport.SelectFull
+   在 IBatisNet.DataMapper.SqlMapper.GetMappedStatement(String id)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.TransportDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.TransPort>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 55 
+
+日志时间：2012-09-13 14:34:19,708 [12] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[Customer.CustomerID],        c.CustomerName as [Customer.CustomerName],        ' at line 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.Commands.DbCommandDecorator.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList[T](RequestScope request, ISqlMapSession session, Object parameterObject, IList`1 resultObject, RowDelegate`1 rowDelegate)
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList[T](ISqlMapSession session, Object parameterObject)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.TransportDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.TransPort>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 55 
+
+日志时间：2012-09-13 14:35:43,921 [15] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.UserName,        u.RealName as UserInfo.RealName,        uu.UserName as RatifyP' at line 1
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.Commands.DbCommandDecorator.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList[T](RequestScope request, ISqlMapSession session, Object parameterObject, IList`1 resultObject, RowDelegate`1 rowDelegate)
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList[T](ISqlMapSession session, Object parameterObject)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.CostDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.Cost>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.CostController.Index(String beginDate, String endDate, Int32 operDepartmentID, Int32 id) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\CostController.cs:行号 41 

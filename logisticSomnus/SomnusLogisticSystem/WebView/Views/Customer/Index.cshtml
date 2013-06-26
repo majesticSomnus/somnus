@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "客户列表";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@using SomnusLogistic.Model
+@using Webdiyer.WebControls.Mvc
+@model PagedList<Customer>
+@section Head{
+ <link rel="stylesheet" type="text/css" media="screen" href="@Url.Content("~/Content/css/page.css")")" />
+     <style type="text/css">
+        #indexForm
+        {
+            width: 100%;
+        }
+        form.cmxform label
+        {
+            width: 55px;
+        }
+    </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "customer" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "customer", action = "index" })
+}
+@using (Html.BeginForm("index", "Customer", FormMethod.Get, new { id = "indexForm", @class = "cmxform" }))
+{
+        <fieldset>
+        <legend>查询 </legend>
+        <p>
+            <label style="width:70px;">
+                归属作业部
+            </label>
+            @Html.DropDownList("OperDepartmentID", "全部")
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="查询" class="cursor" />
+        </p>
+    </fieldset>
+}
+@{
+    Html.RenderPartial("UCJqCustomerList", Model); 
+}
+@section Script{
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script type="text/javascript">
+        function deleteCustomer(customerID) {
+            if (confirm("你确定要删除该客户吗?") == false)
+                return;
+            $.post(urlPrefix + "Customer/DeleteCustomer", { "customerID": customerID }, function (flag) {
+                if (flag) {
+                    alert("操作成功");
+                    location.href = urlPrefix + "Customer";
+                } else {
+                    alert("对不起,出错了");
+                }
+            });
+        }
+
+        $("#OperDepartmentID").change(function () {
+            $('#indexForm').submit();
+        });
+    </script>
+}

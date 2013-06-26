@@ -1,0 +1,5 @@
+D:\work\logisticSomnus\SomnusLogisticSystem\SomnusLogistic.Model\bin\Debug\SomnusLogistic.Model.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\SomnusLogistic.Model\bin\Debug\SomnusLogistic.Model.pdb
+D:\work\logisticSomnus\SomnusLogisticSystem\SomnusLogistic.Model\obj\Debug\ResolveAssemblyReference.cache
+D:\work\logisticSomnus\SomnusLogisticSystem\SomnusLogistic.Model\obj\Debug\SomnusLogistic.Model.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\SomnusLogistic.Model\obj\Debug\SomnusLogistic.Model.pdb

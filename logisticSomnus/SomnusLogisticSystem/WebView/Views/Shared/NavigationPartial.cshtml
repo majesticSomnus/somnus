@@ -1,0 +1,45 @@
+﻿@{
+    string control = string.IsNullOrEmpty(@PageData["control"]) ? string.Empty : (@PageData["control"] as string).ToLower();
+}
+<ul>
+    @if (control.Equals("userinfo"))
+    {
+        <li class="active"><strong>用户管理</strong></li>
+    }
+    else
+    { 
+        <li>
+            @Html.ActionLink("用户管理", "index", "userInfo")
+        </li>
+    }
+    @if (control.Equals("customer"))
+    {
+        <li class="active"><strong>客户管理</strong></li>
+    }
+    else
+    { 
+        <li>
+            @Html.ActionLink("客户管理", "index", "customer")
+        </li>
+    }
+    @if (control.Equals("transport"))
+    {
+        <li class="active"><strong>运输管理</strong></li>
+    }
+    else
+    { 
+        <li>
+            @Html.ActionLink("运输管理", "index", "transport")
+        </li>
+    }
+        @if (control.Equals("cost"))
+    {
+        <li class="active"><strong>费用管理</strong></li>
+    }
+    else
+    { 
+        <li>
+            @Html.ActionLink("费用管理", "index", "cost")
+        </li>
+    }
+</ul>

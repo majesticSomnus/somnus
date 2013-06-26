@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="SomnusLogistic.Dao.Cost"
+  xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <alias>
+    <typeAlias alias="Cost" type="SomnusLogistic.Model.Cost, SomnusLogistic.Model"/>
+  </alias>
+
+  <statements>
+    <select id="Count" parameterClass="map" resultClass="int">
+      select count(1) from Cost where IsDelete=0
+    </select>
+
+    <insert id="Insert" parameterClass="Cost" resultClass="int">
+      INSERT INTO `cost`
+      (
+      `UserID`,
+      `RatifyID`,
+      `AddDate`,
+      `Project`,
+      `Detail`,
+      `Money`,
+      `Memo`,
+      `IsDelete`,
+      `CreateDate`,
+      ExecutorID,
+      IsHasInvoice,
+      OperDepartmentID
+      )
+      VALUES
+      (
+      #UserID#
+      ,
+      #RatifyID#
+      ,
+      #AddDate#
+      ,
+      #Project#
+      ,
+      #Detail#
+      ,
+      #Money#
+      ,
+      #Memo#
+      ,
+      0
+      ,
+      #CreateDate#
+      ,
+      #ExecutorID#
+      ,
+      #IsHasInvoice#
+      ,
+      #OperDepartmentID#
+      );
+
+
+      select @@IDENTITY as value
+    </insert>
+
+    <update id="Delete" parameterClass="int">
+      update  Cost set IsDelete=1 where CostID=#CostID#
+    </update>
+
+    <update id="Update" parameterClass="Cost">
+      UPDATE `cost`
+      SET
+      `UserID` = #UserID#,
+      `RatifyID` = #RatifyID#,
+      `AddDate` = #AddDate#,
+      `Project` = #Project#,
+      `Detail` = #Detail#,
+      `Money` = #Money#,
+      `Memo` = #Memo#,
+      `IsDelete` = #IsDelete#,
+      `CreateDate` = #CreateDate#,
+      ExecutorID=#ExecutorID#,
+      IsHasInvoice=#IsHasInvoice#,
+      OperDepartmentID=#OperDepartmentID#
+      WHERE CostID=#CostID#
+
+    </update>
+
+    <select id="Select" parameterClass="map" resultClass="Cost">
+      SELECT
+      `CostID`,
+      `UserID`,
+      `RatifyID`,
+      `AddDate`,
+      `Project`,
+      `Detail`,
+      `Money`,
+      `Memo`,
+      `IsDelete`,
+      `CreateDate`,
+      ExecutorID,
+      IsHasInvoice,
+      OperDepartmentID
+      FROM `cost` where isDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        CostID=#ID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable property="BeginDate"  prepend="AND" >
+        <![CDATA[AddDate>=#BeginDate#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable property="EndDate"  prepend="AND" >
+        <![CDATA[AddDate<=#EndDate#]]>
+      </isPropertyAvailable>
+      order by CreateDate desc
+      <isPropertyAvailable property="Top"  prepend="" >
+        <![CDATA[limit 0,#Top#]]>
+      </isPropertyAvailable>
+
+    </select>
+
+    <select id="SelectPager" parameterClass="map" resultClass="Cost">
+      SELECT
+      `CostID`,
+      `UserID`,
+      `RatifyID`,
+      `AddDate`,
+      `Project`,
+      `Detail`,
+      `Money`,
+      `Memo`,
+      `IsDelete`,
+      `CreateDate`,
+      ExecutorID,
+      IsHasInvoice,
+      OperDepartmentID
+      FROM `cost` where isDelete=0
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable property="BeginDate"  prepend="AND" >
+        <![CDATA[AddDate>=#BeginDate#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable property="EndDate"  prepend="AND" >
+        <![CDATA[AddDate<=#EndDate#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="BeginRow">
+        <![CDATA[limit #BeginRow#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="EndRow">
+        <![CDATA[ , #EndRow#]]>
+      </isPropertyAvailable>
+    </select>
+
+    <select id="SelectFull" parameterClass="map" resultClass="Cost">
+      SELECT
+      c.`CostID`,
+      c.`UserID`,
+      c.`RatifyID`,
+      c.`AddDate`,
+      c.`Project`,
+      c.`Detail`,
+      c.`Money`,
+      c.`Memo`,
+      c.`IsDelete`,
+      c.`CreateDate`,
+      c.ExecutorID,
+      c.IsHasInvoice,
+      c.OperDepartmentID,
+      u.UserName as `UserInfo.UserName`,
+      u.RealName as `UserInfo.RealName`,
+      uu.UserName as `RatifyPersonInfo.UserName`,
+      uu.RealName as `RatifyPersonInfo.RealName`,
+      uuu.UserName as `ExecutorInfo.UserName`,
+      uuu.RealName as `ExecutorInfo.RealName`,
+      uuu.UserID as `ExecutorInfo.UserID`
+      FROM `cost` c left join userInfo u
+      on c.UserID=u.UserID
+      left join userInfo uu
+      on c.RatifyID=uu.UserID
+      left join userInfo uuu
+      on c.ExecutorID=uuu.UserID
+      where c.isDelete=0
+      <isPropertyAvailable prepend="AND" property="ID">
+        c.CostID=#ID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        c.OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable property="BeginDate"  prepend="AND" >
+        <![CDATA[c.AddDate>=#BeginDate#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable property="EndDate"  prepend="AND" >
+        <![CDATA[c.AddDate<=#EndDate#]]>
+      </isPropertyAvailable>
+      order by CreateDate desc
+      <isPropertyAvailable property="Top"  prepend="" >
+        <![CDATA[limit 0,#Top#]]>
+      </isPropertyAvailable>
+    </select>
+    <select id="SelectFullPager" parameterClass="map" resultClass="Cost">
+      SELECT
+      c.`CostID`,
+      c.`UserID`,
+      c.`RatifyID`,
+      c.`AddDate`,
+      c.`Project`,
+      c.`Detail`,
+      c.`Money`,
+      c.`Memo`,
+      c.`IsDelete`,
+      c.`CreateDate`,
+      c.ExecutorID,
+      c.IsHasInvoice,
+      c.OperDepartmentID,
+      u.UserName as `UserInfo.UserName`,
+      u.RealName as `UserInfo.RealName`,
+      uu.UserName as `RatifyPersonInfo.UserName`,
+      uu.RealName as `RatifyPersonInfo.RealName`,
+      uuu.UserName as `ExecutorInfo.UserName`,
+      uuu.RealName as `ExecutorInfo.RealName`,
+      uuu.UserID as `ExecutorInfo.UserID`
+      FROM `cost` c left join userInfo u
+      on c.UserID=u.UserID
+      left join userInfo uu
+      on c.RatifyID=uu.UserID
+      left join userInfo uuu
+      on c.ExecutorID=uuu.UserID
+      where c.isDelete=0
+      <isPropertyAvailable prepend="AND" property="ID">
+        c.CostID=#ID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        c.OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="BeginRow">
+        <![CDATA[limit #BeginRow#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="EndRow">
+        <![CDATA[ , #EndRow#]]>
+      </isPropertyAvailable>
+    </select>
+
+  </statements>
+
+</sqlMap>

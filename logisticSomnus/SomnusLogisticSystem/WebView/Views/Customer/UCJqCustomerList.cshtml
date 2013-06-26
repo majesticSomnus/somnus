@@ -1,0 +1,97 @@
+﻿@using SomnusLogistic.Model
+@using Webdiyer.WebControls.Mvc
+@model PagedList<Customer>
+<div id="dvCustomer">
+    <table id="somnus" rules="rows" class="full" style="border-collapse: collapse; width: 100%;">
+        <tr class="head">
+            <th scope="col">
+                归属作业部
+            </th>
+            <th scope="col">
+                客户名称
+            </th>
+            <th scope="col">
+                到站
+            </th>
+            <th scope="col">
+                收货单位
+            </th>
+            <th scope="col">
+                联系人
+            </th>
+            <th scope="col">
+                联系人手机
+            </th>
+            <th scope="col">
+                固定电话
+            </th>
+            <th scope="col">
+                邮寄地址
+            </th>
+            <th scope="col">
+                备注
+            </th>
+            <th scope="col">
+                操作
+            </th>
+        </tr>
+                @{
+                    int i = 0;
+                    string cla = string.Empty;
+            }
+        @foreach (Customer c in Model)
+        {
+            if (i % 2 == 0)
+            {
+                cla = "odd";
+            }
+            else
+            {
+                cla = "even";
+            }
+             <tr class="@cla"> 
+                <td width="10%">
+                    @c.OperDepartment.Name
+                </td>
+                <td width="10%">
+                    @c.CustomerName
+                </td>
+                <td width="8%">
+                    @c.Station
+                </td>
+                <td>
+                    @c.CargoUnit
+                </td>
+                <td width="8%">
+                    @c.Linkman
+                </td>
+                <td>
+                    @c.LinkPhone
+                </td>
+                <td>
+                    @c.Fphone
+                </td>
+                <td title="@c.Address">
+                    @c.Address
+                </td>
+                <td title="@c.Memo" width="5%">
+                    @c.Memo
+                </td>
+                <td width="10%">
+                    @Html.ActionLink("修改", "Edit", "customer", new RouteValueDictionary { { "id", @c.CustomerID } }, null)
+                    &nbsp;&nbsp;&nbsp; <a href="javascript:;" onclick="deleteCustomer(@c.CustomerID)">删除</a>
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+    @Html.AjaxPager(Model, new PagerOptions()
+{
+    PageIndexParameterName = "id",
+    CssClass = "paginator",
+    AlwaysShowFirstLastPageNumber = true,
+    CurrentPagerItemWrapperFormatString = "<span class=\"cpb\">{0}</span>",
+    SeparatorHtml = ""
+}, new AjaxOptions { UpdateTargetId = "dvCustomer" })
+</div>
+@RenderPage("~/Views/Shared/SomnusTableJS.cshtml")

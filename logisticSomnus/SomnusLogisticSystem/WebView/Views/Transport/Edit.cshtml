@@ -1,0 +1,293 @@
+﻿@{
+    ViewBag.Title = "修改运输记录";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@model SomnusLogistic.Model.TransPort
+@section Head{
+    <style type="text/css">
+        #EditForm
+        {
+            width: 670px;
+        }
+        form.cmxform label
+        {
+            width: 120px;
+        }
+    </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "transport" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "transport", action = "edit" })
+}
+@using (Html.BeginForm("Edit", "Transport", FormMethod.Post, new { id = "EditForm", @class = "cmxform" }))
+{
+    @Html.HiddenFor(t => t.TransportID)
+    @Html.HiddenFor(t => t.UserID)
+    @Html.HiddenFor(t => t.IsDelete)
+    @Html.HiddenFor(t => t.CreateDate)
+    <fieldset>
+        <legend>添加运输记录</legend>
+                        <p>
+                <span class="red">*</span>
+            @Html.LabelFor(c => c.Customer.OperDepartmentID)
+            @Html.DropDownList("OperDepartmentID", "请选择归属作业部")
+        </p>
+        <p>
+            <span class="red">*</span>
+            <label>
+                客户名称
+            </label>
+            @Html.DropDownList("CustomerID")
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.SendPoint)
+            @Html.EditorFor(t => t.SendPoint)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.SendDate)
+            @Html.EditorFor(t => t.SendDate)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.Tonnage)
+            @Html.EditorFor(t => t.Tonnage)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.TrainNumber)
+            @Html.EditorFor(t => t.TrainNumber)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.Ticket)
+            @Html.EditorFor(t => t.Ticket)
+        </p>
+                <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.CarNumber)
+            @Html.EditorFor(t => t.CarNumber)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.Piece)
+            @Html.EditorFor(t => t.Piece)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.Cost1)
+            @Html.EditorFor(t => t.Cost1)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.Cost2)
+            @Html.EditorFor(t => t.Cost2)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.BigCost)
+            @Html.EditorFor(t => t.BigCost)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.StationCost)
+            @Html.EditorFor(t => t.StationCost)
+        </p>
+                <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.ProtectCost)
+            @Html.EditorFor(t => t.ProtectCost)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.ExpressCost)
+            @Html.EditorFor(t => t.ExpressCost)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.TotalCost)
+            @Html.EditorFor(t => t.TotalCost)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.CustomerPay)
+            @Html.EditorFor(t => t.CustomerPay)
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.Profit)
+            @Html.EditorFor(t => t.Profit)
+        </p>
+        <p>
+            @Html.LabelFor(t => t.ArriveDate)
+            @Html.EditorFor(t => t.ArriveDate)
+        </p>
+@*        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(t => t.ArrivePoint)
+            @Html.EditorFor(t => t.ArrivePoint)
+        </p>*@
+        <p>
+            @Html.LabelFor(t => t.CargoLossDetail)
+            @Html.TextAreaFor(t => t.CargoLossDetail)
+        </p>
+        <p>
+            @Html.LabelFor(t => t.CargoLossPrice)
+            @Html.EditorFor(t => t.CargoLossPrice)
+        </p>
+        <p>
+            <input type="submit" class="submit" value="确定" />
+            <input type="button" class="cursor" id="btnReturn" value="返回" />
+        </p>
+    </fieldset>
+}
+@section Script{
+    <script src="@Url.Content("~/Content/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#SendDate").click(function () {
+                WdatePicker({ dateFmt: 'yyyy-MM-dd' });
+            });
+            $("#ArriveDate").click(function () {
+                WdatePicker({ dateFmt: 'yyyy-MM-dd', minDate: '#F{$dp.$D(\'SendDate\')}' });
+            });
+
+            $("#OperDepartmentID").change(function () {
+                var dptID = $("#OperDepartmentID").val();
+                if (dptID == 0) {
+                    return;
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '@Url.Action("SelectCustomer")',
+                    data: { dptID: dptID },
+                    success: function (data) {
+                        if (!data) {
+                            return;
+                        }
+                        var arr = [];
+                        for (var i = 0, len = data.length; i < len; i++) {
+                            var item = data[i];
+                            arr.push('<option value="' + item.CustomerID + '">' + item.CustomerName + '</option>');
+                        }
+                        $("#CustomerID").html(arr.join(''));
+                    },
+                    error: function () {
+                        alert("对不起,出错了");
+                    }
+                });
+            });
+
+
+            $("#CreateForm").validate({
+                rules: {
+                    CustomerID: {
+                        CustomerValid: true
+                    },
+                    SendPoint: "required",
+                    SendDate: "required",
+                    Tonnage: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    TrainNumber: "required",
+                    Ticket: "required",
+                    Cost1: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    Cost2: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    BigCost: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    StationCost: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    TotalCost: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    CustomerPay: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    Profit: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    ArrivePoint: "required",
+                    CargoLossPrice: {
+                        MoneyValid: true
+                    },
+                    CarNumber: "required",
+                    Piece: {
+                        required: true,
+                        PieceValid: true
+                    },
+                    ProtectCost: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    ExpressCost: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    OperDepartmentID: {
+                        OperDepartmentValid: true
+                    }
+                },
+                messages: {
+                    SendPoint: "请输入发运地",
+                    SendDate: "请输入发货时间",
+                    Tonnage: {
+                        required: "请输入吨位",
+                        MoneyValid: "请输入正确的吨位"
+                    },
+                    TrainNumber: "请输入车皮号",
+                    Ticket: "请输入票号",
+                    Cost1: {
+                        required: "请输入每吨的短盘成本"
+                    },
+                    Cost2: {
+                        required: "请输入每车皮的短盘成本"
+                    },
+                    BigCost: {
+                        required: "请输入铁路大票费用"
+                    },
+                    StationCost: {
+                        required: "请输入车站费用"
+                    },
+                    TotalCost: {
+                        required: "请输入总成本"
+                    },
+                    CustomerPay: {
+                        required: "请输入客户支付"
+                    },
+                    Profit: {
+                        required: "请输入利润"
+                    },
+                    ArrivePoint: "请输入到达地",
+                    CarNumber: "请输入派车单号",
+                    Piece: {
+                        required: "请输入件数"
+                    },
+                    ProtectCost: {
+                        required: "请输入防护费用"
+                    },
+                    ExpressCost: {
+                        required: "请输入快递费用"
+                    }
+                }
+            });
+        });
+    </script>
+}

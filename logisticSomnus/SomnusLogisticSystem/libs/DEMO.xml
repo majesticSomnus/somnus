@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="SomnusLogistic.Dao.Permission"
+  xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <alias>
+    <typeAlias alias="Permission" type="SomnusLogistic.Model.Permission, SomnusLogistic.Model"/>
+  </alias>
+
+  <statements>
+    <select id="Count" parameterClass="map" resultClass="int">
+      select count(1) from
+    </select>
+
+    <insert id="Insert" parameterClass="Cost" resultClass="int">
+      select @@IDENTITY as value
+    </insert>
+
+    <update id="Delete" parameterClass="int">
+      update  XX  set IsDelete=1 where  XXX
+    </update>
+
+    <update id="Update" parameterClass="Cost">
+    </update>
+
+    <select id="Select" parameterClass="map" resultClass="Cost">
+      SELECT
+
+      FROM   where isDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        CostID=#ID#
+      </isPropertyAvailable>
+      order by CreateDate desc
+      <isPropertyAvailable property="Top"  prepend="" >
+        <![CDATA[limit 0,#Top#]]>
+      </isPropertyAvailable>
+
+    </select>
+
+    <select id="SelectPager" parameterClass="map" resultClass="Cost">
+      SELECT
+      `CostID`,
+      `UserID`,
+      `RatifyID`,
+      `AddDate`,
+      `Project`,
+      `Detail`,
+      `Money`,
+      `Memo`,
+      `IsDelete`,
+      `CreateDate`,
+      ExecutorID,
+      IsHasInvoice,
+      OperDepartmentID
+      FROM `cost` where isDelete=0
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="BeginRow">
+        <![CDATA[limit #BeginRow#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="EndRow">
+        <![CDATA[ , #EndRow#]]>
+      </isPropertyAvailable>
+    </select>
+  </statements>
+</sqlMap>

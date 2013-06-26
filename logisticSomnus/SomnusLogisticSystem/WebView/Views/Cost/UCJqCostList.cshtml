@@ -1,0 +1,105 @@
+﻿@using SomnusLogistic.Model
+@using Webdiyer.WebControls.Mvc
+@model PagedList<Cost>
+<div id="dvCosts">
+    <table id="somnus" rules="rows" class="full" style="border-collapse: collapse; width: 100%;">
+        <tr class="head">
+            <th scope="col">
+                归属作业部
+            </th>
+            <th scope="col">
+                日期
+            </th>
+            <th scope="col">
+                项目
+            </th>
+            <th scope="col">
+                详细内容
+            </th>
+            <th scope="col">
+                执行人
+            </th>
+            <th scope="col">
+                批准人
+            </th>
+            <th scope="col">
+                金额
+            </th>
+            <th scope="col">
+                有无发票
+            </th>
+            <th scope="col">
+                备注
+            </th>
+            <th scope="col">
+                操作
+            </th>
+        </tr>
+        @{
+            int i = 0;
+            string cla = string.Empty;
+        }
+        @foreach (Cost cost in Model)
+        {
+            if (i % 2 == 0)
+            {
+                cla = "odd";
+            }
+            else
+            {
+                cla = "even";
+            }
+            <tr class="@cla">
+                <td width="10%">
+                    @cost.OperDepartment.Name
+                </td>
+                <td>
+                    @cost.AddDate.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    @cost.Project
+                </td>
+                <td>
+                    @cost.Detail
+                </td>
+                <td>
+                    @cost.ExecutorInfo.RealName
+                </td>
+                <td>
+                    @cost.RatifyPersonInfo.RealName
+                </td>
+                <td>
+                    @cost.Money
+                </td>
+                <td>
+                    @if (cost.IsHasInvoice)
+                    { 
+                        @:有发票
+                    }
+                    else
+                    { 
+                        @:无发票
+                                                                                  
+                    }
+                </td>
+                <td>
+                    @cost.Memo
+                </td>
+                <td width="10%">
+                    @Html.ActionLink("修改", "Edit", "Cost", new RouteValueDictionary { { "id", @cost.CostID } }, null)
+                    &nbsp;&nbsp;&nbsp; <a href="javascript:;" onclick="deleteCost(@cost.CostID)">删除</a>
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+    @Html.AjaxPager(Model, new PagerOptions()
+{
+    PageIndexParameterName = "id",
+    CssClass = "paginator",
+    AlwaysShowFirstLastPageNumber = true,
+    CurrentPagerItemWrapperFormatString = "<span class=\"cpb\">{0}</span>",
+    SeparatorHtml = ""
+}, new AjaxOptions { UpdateTargetId = "dvCosts" })
+</div>
+@RenderPage("~/Views/Shared/SomnusTableJS.cshtml")

@@ -1,0 +1,111 @@
+﻿@using SomnusLogistic.Model
+@using Webdiyer.WebControls.Mvc
+@model PagedList<UserInfo>
+<div id="dvUsers">
+    <table id="somnus" rules="rows" style="border-collapse: collapse; width: 100%;">
+        <tr class="head">
+            <th>
+                用户名
+            </th>
+            <th>
+                真实姓名
+            </th>
+            <th>
+                性别
+            </th>
+            <th>
+                电话号码
+            </th>
+            <th>
+                住址
+            </th>
+            <th>
+                状态
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+        @{
+            int i = 0;
+            string cla=string.Empty;
+            }
+        @foreach (UserInfo user in Model)
+        {
+            if (i % 2 == 0)
+            {
+                cla = "odd";
+            }
+            else
+            {
+                cla = "even";
+            }
+             <tr class="@cla"> 
+                <td>
+                    @user.UserName
+                </td>
+                <td>
+                    @user.RealName
+                </td>
+                <td>
+                    @{
+               string sex = user.Sex == 0 ? "男" : "女";
+                    }
+                    @sex
+                </td>
+                <td>
+                    @user.Phone
+                </td>
+                <td>
+                    @user.Address
+                </td>
+                <td>
+                    @{
+               string strShow = user.IsForbidden ? "启用" : "禁用";
+               int forbidValue = user.IsForbidden ? 0 : 1;
+                    }
+                    @if (user.IsForbidden)
+                    {
+                        <span style="color: red;">禁用</span>
+                    }
+                    else
+                    {
+                        <span>正常</span>
+                    }
+                </td>
+                <td>
+                    @if (user.UserName.Equals("admin") == false)
+                    {
+                        <a href="javascript:;" onclick="forbidOrEnableUser(@user.UserID,@forbidValue)">@strShow</a>
+                        @:&nbsp; &nbsp; &nbsp;
+                                         }
+                    @Html.ActionLink("修改", "EditUserInfo", "UserInfo", new RouteValueDictionary { { "id", user.UserID } }, null)
+                    &nbsp;&nbsp;&nbsp;
+                    @if (user.UserName.Equals("admin") == false)
+                    {
+                        <a href="javascript:;" onclick="deleteUser(@user.UserID)">删除</a>
+                    }
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+    @Html.AjaxPager(Model, new PagerOptions()
+{
+    PageIndexParameterName = "id",
+    CssClass = "paginator",
+    AlwaysShowFirstLastPageNumber = true,
+    CurrentPagerItemWrapperFormatString = "<span class=\"cpb\">{0}</span>",
+    SeparatorHtml = ""
+}, new AjaxOptions { UpdateTargetId = "dvUsers" })
+    @*    @Html.AjaxPager(Model, new PagerOptions()
+{
+    PageIndexParameterName = "id",
+    CssClass = "pages",
+    AlwaysShowFirstLastPageNumber=true,
+    CurrentPagerItemWrapperFormatString = "<span class=\"cpb\">{0}</span>",
+    NumericPagerItemWrapperFormatString = "<span class=\"item\">{0}</span>",
+    SeparatorHtml = ""
+}, new AjaxOptions { UpdateTargetId = "dvUsers" })*@
+</div>
+@RenderPage("~/Views/Shared/SomnusTableJS.cshtml") 

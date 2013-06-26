@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="SomnusLogistic.Dao.UserInfo"
+  xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <alias>
+    <typeAlias alias="UserInfo" type="SomnusLogistic.Model.UserInfo, SomnusLogistic.Model"/>
+  </alias>
+  
+  <statements>
+    <select id="Count" parameterClass="map" resultClass="int">
+      select count(1) from userinfo where IsDelete=0
+        <isPropertyAvailable prepend="and" property="UserName">
+          <![CDATA[UserName = #UserName#]]>
+        </isPropertyAvailable>
+        <isPropertyAvailable prepend="and" property="Password">
+          <![CDATA[Password =#Password#]]>
+        </isPropertyAvailable>
+    </select>
+
+    <insert id="Insert" parameterClass="UserInfo" resultClass="int">
+      INSERT INTO userinfo
+      (
+      UserName,
+      Password,
+      RealName,
+      Sex,
+      Phone,
+      Address,
+      IsForbidden,
+      IsDelete,
+      CreateDate)
+      VALUES
+      (
+      #UserName#,
+      #Password#,
+      #RealName#,
+      #Sex#,
+      #Phone#,
+      #Address#,
+      0,
+      0,
+      #CreateDate#
+      );
+      select @@IDENTITY as value
+    </insert>
+
+    <update id="Delete" parameterClass="int">
+      update  UserInfo set IsDelete=1 where UserID=#UserID#
+    </update>
+
+    <update id="ForbidUser" parameterClass="map">
+      update  UserInfo set IsForbidden=#ForbidValue# where UserID=#UserID#
+    </update>
+   
+    <update id="Update" parameterClass="UserInfo">
+      UPDATE `userinfo`
+      SET
+      `UserID` = #UserID#,
+      `UserName` = #UserName#,
+      `Password` = #Password#,
+      `RealName` = #RealName#,
+      `Sex` = #Sex#,
+      `Phone` = #Phone#,
+      `Address` = #Address#,
+      `IsForbidden` = #IsForbidden#,
+      `IsDelete` = #IsDelete#,
+      `CreateDate` = #CreateDate#
+      WHERE UserID=#UserID#
+    </update>
+
+    <select id="Select" parameterClass="map" resultClass="UserInfo">
+      select
+      UserID,
+      UserName,
+      Password,
+      RealName,
+      Sex,
+      Phone,
+      Address,
+      IsForbidden,
+      IsDelete,
+      CreateDate
+      from UserInfo
+      where IsDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        <![CDATA[UserID = #ID#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="UserName">
+        <![CDATA[UserName = #UserName#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="Password">
+        <![CDATA[Password =#Password#]]>
+      </isPropertyAvailable>
+      
+    </select>
+    
+    <select id="SelectPager" parameterClass="map" resultClass="UserInfo">
+      select UserName,
+      Password,
+      RealName,
+      Sex,
+      Phone,
+      Address,
+      IsForbidden,
+      IsDelete,
+      CreateDate
+      from UserInfo
+      where IsDelete=0
+      <isPropertyAvailable prepend="and" property="UserName">
+        <![CDATA[UserName = #UserName#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="Password">
+        <![CDATA[Password =#Password#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="BeginRow">
+        <![CDATA[limit #BeginRow#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="EndRow">
+        <![CDATA[ , #EndRow#]]>
+      </isPropertyAvailable>
+    </select>
+  </statements>
+  
+</sqlMap>

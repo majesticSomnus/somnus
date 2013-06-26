@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "修改费用记录";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@model  SomnusLogistic.Model.Cost
+@section Head{
+    <style type="text/css">
+        #EditForm
+        {
+            width: 670px;
+        }
+        form.cmxform label
+        {
+            width: 120px;
+        }
+    </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "cost" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "cost", action = "edit" })
+}
+@using (Html.BeginForm("Edit", "Cost", FormMethod.Post, new { id = "EditForm", @class = "cmxform" }))
+{
+    <fieldset>
+        <legend>修改费用记录</legend>
+        @Html.HiddenFor(c => c.CostID)
+        @Html.HiddenFor(c => c.UserID)
+        @Html.HiddenFor(c => c.IsDelete)
+        @Html.HiddenFor(c => c.CreateDate)
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(c => c.OperDepartmentID)
+            @Html.DropDownList("OperDepartmentID", "请选择归属作业部")
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(c => c.AddDate)
+            @Html.EditorFor(c => c.AddDate, new { @class = "Wdate" })
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(c => c.Project)
+            @Html.EditorFor(c => c.Project)
+        </p>
+        <p>
+            <label>
+                <span class="red">*</span> 详细内容
+            </label>
+            @Html.EditorFor(c => c.Detail)
+        </p>
+        <p>
+            <span class="red">*</span>
+            <label>
+                执行人
+            </label>
+            @Html.DropDownList("ExecutorID", "请选择执行人")
+        </p>
+        <p>
+            <span class="red">*</span>
+            <label>
+                批准人</label>
+            @Html.DropDownList("RatifyID", "请选择批准人")
+        </p>
+        <p>
+            <span class="red">*</span>
+            @Html.LabelFor(c => c.Money)
+            @Html.EditorFor(c => c.Money)
+        </p>
+        <p>
+            <label>
+                是否有发票
+            </label>
+            @Html.DropDownList("HasInvoice")
+        </p>
+        <p>
+            @Html.LabelFor(c => c.Memo)
+            @Html.EditorFor(c => c.Memo)
+        </p>
+        <p>
+            <input type="submit" class="submit" value="确定" />
+            <input type="button" class="cursor" id="btnReturn" value="返回" />
+        </p>
+    </fieldset>
+}
+@section Script{
+    <script src="@Url.Content("~/Content/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#AddDate").click(function () {
+                WdatePicker({ dateFmt: 'yyyy-MM-dd' });
+            });
+
+            $("#CreateForm").validate({
+                rules: {
+                    AddDate: "required",
+                    Project: "required",
+                    Detail: "required",
+                    ExecutorID: {
+                        ExecutorValid: true
+                    },
+                    RatifyID: {
+                        RatifyValid: true
+                    },
+                    Money: {
+                        required: true,
+                        MoneyValid: true
+                    },
+                    OperDepartmentID: {
+                        OperDepartmentValid: true
+                    }
+                },
+                messages: {
+                    AddDate: "请选择日期",
+                    Project: "请输入项目",
+                    Detail: "请输入详细内容",
+                    Money: {
+                        required: "请输入金额"
+                    }
+                }
+            });
+        });
+
+        $("#btnReturn").click(function () {
+            location.href = urlPrefix + "cost/"
+        });
+    </script>
+}

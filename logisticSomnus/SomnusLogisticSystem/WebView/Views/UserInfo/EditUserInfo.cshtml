@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "修改用户信息";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@model SomnusLogistic.Model.UserInfo
+@section Head{
+    <style type="text/css">
+        #EditUserInfoForm
+        {
+            width: 470px;
+        }
+    </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "userInfo" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "userInfo", action = "editUserInfo" })
+}
+@using (Html.BeginForm("EditUserInfo", "UserInfo", FormMethod.Post, new { id = "EditUserInfoForm", @class = "cmxform" }))
+{
+    <fieldset>
+        <legend>修改用户信息</legend>
+        @Html.ValidationSummary()
+        <p>
+            <span class="red">*</span>
+            <label>
+                用户名
+            </label>
+            @Html.HiddenFor(m => m.UserID)
+            <label id="UserName">
+                @Model.UserName
+            </label>
+            <input type="button" id="UpdatePassword" name="UpdatePassword" value="修改密码" class="cursor" />
+            <input type="text" style="display: none;" id="Password" name="Password" />
+        </p>
+        <p>
+            <span class="red">*</span>
+            <label>
+                真实姓名
+            </label>
+            @Html.EditorFor(m => m.RealName);
+        </p>
+        <p>
+            <label>
+                性别
+            </label>
+            @if (@Model.Sex == 0)
+            {
+                <input type="radio" name="Sex" id="male" value="0" checked="checked" />
+                <label style="width: 10px;" for="male">
+                    男
+                </label>
+                <input type="radio" name="Sex" id="female" value="1" style="margin-left: 10px;" />
+                <label style="width: 10px;" for="female">
+                    女
+                </label>
+            }
+            else
+            { 
+                <input type="radio" name="Sex" id="male" value="0" />
+                <label style="width: 10px;" for="male">
+                    男
+                </label>
+                <input type="radio" name="Sex" id="female" value="1" checked="checked" />
+                <label style="width: 10px;" for="female">
+                    女
+                </label>
+            }
+        </p>
+        <p>
+            <label>
+                手机号码
+            </label>
+            @Html.EditorFor(m => m.Phone)
+        </p>
+        <p>
+            <label>
+                住址
+            </label>
+            @Html.EditorFor(m => m.Address)
+        </p>
+        <p>
+            <input type="submit" class="submit" value="确定" />
+            <input type="button" class="cursor" id="btnReturn" value="返回" />
+        </p>
+    </fieldset>
+}
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            $("#EditUserInfoForm").validate({
+                rules: {
+                    Phone: {
+                        telphoneValid: true,
+                        rangelength: [11, 11]
+                    }
+                }
+            });
+        });
+        $("#UpdatePassword").click(function () {
+            var flag = $("#Password").is(":hidden");
+            if (flag) {
+                $("#Password").show();
+            } else {
+                $("#Password").hide();
+                $("#Password").attr("value", "");
+            }
+        });
+
+        $("#btnReturn").click(function () {
+            location.href = urlPrefix+"/userinfo/"
+        });
+    </script>
+}

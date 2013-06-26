@@ -1,0 +1,95 @@
+
+日志时间：2013-04-03 10:32:32,249 [5] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+MySql.Data.MySqlClient.MySqlException (0x80004005): SELECT command denied to user 'a0403093704'@'124.65.149.246' for table 'transport'
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.Commands.DbCommandDecorator.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList[T](RequestScope request, ISqlMapSession session, Object parameterObject, IList`1 resultObject, RowDelegate`1 rowDelegate)
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList[T](ISqlMapSession session, Object parameterObject)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.TransportDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.TransPort>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 55 
+
+日志时间：2013-04-03 10:32:50,908 [5] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+MySql.Data.MySqlClient.MySqlException (0x80004005): SELECT command denied to user 'a0403093704'@'124.65.149.246' for table 'transport'
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.Commands.DbCommandDecorator.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList[T](RequestScope request, ISqlMapSession session, Object parameterObject, IList`1 resultObject, RowDelegate`1 rowDelegate)
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList[T](ISqlMapSession session, Object parameterObject)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.TransportDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.TransPort>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 55 
+
+日志时间：2013-04-03 10:41:24,928 [11] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+MySql.Data.MySqlClient.MySqlException (0x80004005): SELECT command denied to user 'a0403093704'@'124.65.149.246' for table 'transport'
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.Commands.DbCommandDecorator.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList[T](RequestScope request, ISqlMapSession session, Object parameterObject, IList`1 resultObject, RowDelegate`1 rowDelegate)
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList[T](ISqlMapSession session, Object parameterObject)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.TransportDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.TransPort>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 55 
+
+日志时间：2013-04-03 10:49:34,326 [9] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+MySql.Data.MySqlClient.MySqlException (0x80004005): SELECT command denied to user 'a0403093704'@'124.65.149.246' for table 'transport'
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int32& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.Commands.DbCommandDecorator.System.Data.IDbCommand.ExecuteReader()
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList[T](RequestScope request, ISqlMapSession session, Object parameterObject, IList`1 resultObject, RowDelegate`1 rowDelegate)
+   在 IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList[T](ISqlMapSession session, Object parameterObject)
+   在 IBatisNet.DataMapper.SqlMapper.QueryForList[T](String statementName, Object parameterObject)
+   在 Somnus.Common.Util.DataAccess.BaseImpl`1.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseImpl.cs:行号 79
+   在 SomnusLogistic.Dao.MySql.Impl.TransportDao.Somnus.Common.Util.DataAccess.IBaseInter<SomnusLogistic.Model.TransPort>.Select(Hashtable , Boolean )
+   在 Somnus.Common.Util.DataAccess.BaseServent`2.Select(Hashtable param, Boolean isFull) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Util\DataAccess\BaseServent.cs:行号 35
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 55 
+
+日志时间：2013-04-03 10:53:47,564 [9] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 WebView.Controllers.TransportController.<>c__DisplayClassd.<Index>b__8(OperDepartment o) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 58
+   在 System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   在 System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   在 WebView.Controllers.TransportController.<Index>b__7(TransPort ts) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 58
+   在 System.Collections.Generic.List`1.ForEach(Action`1 action)
+   在 WebView.Controllers.TransportController.Index(Int32 operDepartmentID, Int32 customerID) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\TransportController.cs:行号 56 

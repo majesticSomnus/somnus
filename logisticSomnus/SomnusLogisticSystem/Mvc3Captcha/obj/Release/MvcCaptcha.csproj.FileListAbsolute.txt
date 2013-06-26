@@ -1,0 +1,10 @@
+D:\work\logistic0827\SomnusLogisticSystem\Mvc3Captcha\bin\Release\MvcCaptcha.dll
+D:\work\logistic0827\SomnusLogisticSystem\Mvc3Captcha\bin\Release\MvcCaptcha.pdb
+D:\work\logistic0827\SomnusLogisticSystem\Mvc3Captcha\obj\Release\ResolveAssemblyReference.cache
+D:\work\logistic0827\SomnusLogisticSystem\Mvc3Captcha\obj\Release\MvcCaptcha.dll
+D:\work\logistic0827\SomnusLogisticSystem\Mvc3Captcha\obj\Release\MvcCaptcha.pdb
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\bin\Release\MvcCaptcha.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\bin\Release\MvcCaptcha.pdb
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\obj\Release\ResolveAssemblyReference.cache
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\obj\Release\MvcCaptcha.dll
+D:\work\logisticSomnus\SomnusLogisticSystem\Mvc3Captcha\obj\Release\MvcCaptcha.pdb

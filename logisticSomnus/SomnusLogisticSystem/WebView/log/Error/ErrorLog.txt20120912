@@ -1,0 +1,18 @@
+
+日志时间：2012-09-12 16:00:40,232 [5] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+System.ArgumentNullException: String 引用没有设置为 String 的实例。
+参数名: s
+   在 System.Text.Encoding.GetBytes(String s)
+   在 Somnus.Common.Md5.ToMD5(String strPwd) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Md5.cs:行号 21
+   在 WebView.Controllers.UserInfoController.AddUserInfo(UserInfo user) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\UserInfoController.cs:行号 126 
+
+日志时间：2012-09-12 16:00:52,024 [5] 
+日志级别：ERROR 
+日 志 类：logError [(null)] 
+System.ArgumentNullException: String 引用没有设置为 String 的实例。
+参数名: s
+   在 System.Text.Encoding.GetBytes(String s)
+   在 Somnus.Common.Md5.ToMD5(String strPwd) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\Somnus.Common\Md5.cs:行号 21
+   在 WebView.Controllers.UserInfoController.AddUserInfo(UserInfo user) 位置 D:\work\logisticSomnus\SomnusLogisticSystem\WebView\Controllers\UserInfoController.cs:行号 126 

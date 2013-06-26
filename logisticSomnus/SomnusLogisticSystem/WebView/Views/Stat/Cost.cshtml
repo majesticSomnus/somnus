@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "费用报表";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@section Head{
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "stat" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "stat", action = "cost" })
+}
+@section Script{
+}
+

@@ -1,0 +1,334 @@
+﻿@{
+    ViewBag.Title = "运输报表";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@using SomnusLogistic.Model
+@model List<TransPort>
+@{
+    string height = "350px";
+}
+@section Head{
+    <link href="@Url.Content("~/Content/css/superTables.css")" rel="Stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Scripts/JqueryUI/themes/base/jquery.ui.all.css")">
+    <style type="text/css">
+    #indexForm
+    {
+        width: 990px;
+    }
+    form.cmxform label
+    {
+        width: 60px;
+    }
+ .fakeContainer { /* The parent container */
+    padding: 0px;
+    border: none;
+    width: 990px; /* Required to set */
+    height: @height; /* Required to set */
+    overflow: hidden; /* Required to set */
+}
+  tr{cursor:pointer;}
+ </style>
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "transport" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "transport", action = "index" })
+}
+@using (Html.BeginForm("index", "Transport", FormMethod.Get, new { id = "indexForm", @class = "cmxform" }))
+{
+    <fieldset>
+        <legend>查询 </legend>
+        <p>
+            <label style="width: 70px;">
+                归属作业部
+            </label>
+            @Html.DropDownList("OperDepartmentID", "全部")
+            &nbsp;&nbsp;&nbsp;
+            <label>
+                客户名称
+            </label>
+            @Html.DropDownList("CustomerID", "全部")
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="查询" class="cursor" />
+        </p>
+    </fieldset>
+}
+<div class="fakeContainer">
+    <table id="somnus">
+        <tr>
+            <th colspan="5">
+                客户信息
+            </th>
+            <th colspan="7">
+                发运方
+            </th>
+            <th colspan="7">
+                成本核算
+            </th>
+            <th colspan="2">
+                利润
+            </th>
+            <th colspan="3">
+                到达方
+            </th>
+        </tr>
+        <tr>
+            <th>
+                归属作业部
+            </th>
+            <th>
+                收货单位
+            </th>
+            <th>
+                到站
+            </th>
+            <th>
+                联系人
+            </th>
+            <th>
+                电话
+            </th>
+            <th>
+                发运地
+            </th>
+            <th>
+                时间
+            </th>
+            <th>
+                吨位
+            </th>
+            <th>
+                车皮号
+            </th>
+            <th>
+                票号
+            </th>
+            <th>
+                派车单号
+            </th>
+            <th>
+                件数
+            </th>
+            <th>
+                短盘成本(元/吨)
+            </th>
+            <th>
+                短盘成本(元/车皮或箱)
+            </th>
+            <th>
+                铁路大票费用
+            </th>
+            <th>
+                车站费用
+            </th>
+            <th>
+                防护费用
+            </th>
+            <th>
+                快递费用
+            </th>
+            <th>
+                总成本(元/车或箱)
+            </th>
+            <th>
+                客户支付(元/车或箱)
+            </th>
+            <th>
+                利润
+            </th>
+            <th>
+                时间
+            </th>
+            <th>
+                货损明细
+            </th>
+            <th>
+                货损价值
+            </th>
+        </tr>
+        @foreach (TransPort trans in Model)
+        { 
+            <tr ondblclick="alertOperation(@trans.TransportID);">
+                <td>
+                    @trans.Customer.OperDepartment.Name
+                </td>
+                <td>
+                    @trans.Customer.CargoUnit
+                </td>
+                <td>
+                    @trans.Customer.Station
+                </td>
+                <td>
+                    @trans.Customer.Linkman
+                </td>
+                <td>
+                    @trans.Customer.LinkPhone
+                </td>
+                <td>
+                    @trans.SendPoint
+                </td>
+                <td>
+                    @trans.SendDate.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    @trans.Tonnage
+                </td>
+                <td>
+                    @trans.TrainNumber
+                </td>
+                <td>
+                    @trans.Ticket
+                </td>
+                <td>
+                    @trans.CarNumber
+                </td>
+                <td>
+                    @trans.Piece
+                </td>
+                <td>
+                    @trans.Cost1
+                </td>
+                <td>
+                    @trans.Cost2
+                </td>
+                <td>
+                    @trans.BigCost
+                </td>
+                <td>
+                    @trans.StationCost
+                </td>
+                <td>
+                    @trans.ProtectCost
+                </td>
+                <td>
+                    @trans.ExpressCost
+                </td>
+                <td>
+                    @trans.TotalCost
+                </td>
+                <td>
+                    @trans.CustomerPay
+                </td>
+                <td>
+                    @trans.Profit
+                </td>
+                <td>
+                    @if (trans.ArriveDate != new DateTime())
+                    {
+                        @trans.ArriveDate.ToString("yyyy-MM-dd");
+                    }
+                    else
+                    { 
+                        @:<span class="red">未填写到达时间</span>
+                    }
+                </td>
+                <td>
+                    @trans.CargoLossDetail
+                </td>
+                <td>
+                    @trans.CargoLossPrice
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div id="dialog" title="操作" style="display: none;">
+    <p>
+        @*        <input type="button" id="aEdit" value="修改" />
+        <input type="button" id="aDelete" value="删除" />*@ <a id="aEdit" href="javascript:;">
+            去修改</a> <a id="aDelete" href="javascript:;">删除</a>
+    </p>
+</div>
+@section Script{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/superTables.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/external/jquery.bgiframe-2.1.2.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.ui.core.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.ui.widget.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.ui.mouse.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.ui.draggable.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.ui.position.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.ui.resizable.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.ui.dialog.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.effects.core.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.effects.blind.js")"></script>
+    <script src="@Url.Content("~/Scripts/JqueryUI/ui/jquery.effects.explode.js")"></script>
+    <script type="text/javascript">
+        $.fx.speeds._default = 1000;
+        $(function () {
+            HighlightTableRows("somnus");
+            //超级table
+            var mySt = new superTable("somnus", {
+                cssSkin: "sDefault", //sSky,sOrange,sDark
+                fixedCols: 3,
+                headerRows: 2
+            });
+
+
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: "blind",
+                hide: "explode"
+            });
+        });
+
+        function alertOperation(transID) {
+            $("#dialog").dialog("open");
+            $("#aEdit").unbind("click").click(function () {
+                //这里执行编辑
+                location.href = urlPrefix + "Transport/Edit/" + transID;
+            });
+            $("#aDelete").unbind("click").click(function () {
+                $("#dialog").dialog("close");
+                //这里执行删除
+                if (confirm("你确定要删除这条记录吗?") == false)
+                    return;
+                $.post(urlPrefix + "Transport/Delete", { "id": transID }, function (flag) {
+                    if (flag) {
+                        alert("操作成功");
+                        location.href = urlPrefix + "transport";
+                    } else {
+                        alert("对不起,出错了");
+                    }
+                });
+            });
+            return false;
+        }
+
+        $("#CustomerID option").each(function () {
+            $(this).attr({ 'title': $(this).html() });
+        });
+        $("#CustomerID").change(function () {
+            $('#indexForm').submit();
+        });
+
+        $("#OperDepartmentID").change(function () {
+            $('#indexForm').submit();
+            //            var dptID = $("#OperDepartmentID").val();
+            //            if (dptID == 0) {
+            //                return;
+            //            }
+            //            $.ajax({
+            //                type: "post",
+            //                dataType: "json",
+            //                url: '@Url.Action("SelectCustomer")',
+            //                data: { dptID: dptID },
+            //                success: function (data) {
+            //                    if (!data) {
+            //                        return;
+            //                    }
+            //                    var arr = [];
+            //                    for (var i = 0, len = data.length; i < len; i++) {
+            //                        var item = data[i];
+            //                        arr.push('<option value="' + item.CustomerID + '">' + item.CustomerName + '</option>');
+            //                    }
+            //                    $("#CustomerID").html(arr.join(''));
+            //                },
+            //                error: function () {
+            //                    alert("对不起,出错了");
+            //                }
+            //            });
+        });
+
+    </script>
+}

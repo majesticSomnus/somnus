@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="SomnusLogistic.Dao.Permission"
+  xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <alias>
+    <typeAlias alias="Permission" type="SomnusLogistic.Model.Permission, SomnusLogistic.Model"/>
+  </alias>
+
+  <statements>
+    <select id="Count" parameterClass="map" resultClass="int">
+      select count(1) from tbpermission
+    </select>
+
+    <insert id="Insert" parameterClass="Permission" resultClass="int">
+      INSERT INTO tbpermission
+      (
+      ParentID,
+      PermissionName,
+      PermissionController,
+      PermissionAction,
+      Icon,
+      IsVisible,
+      IsButton,
+      Sort,
+      Description,
+      IsDelete,
+      CreateDate)
+      VALUES
+      (
+      #ParentID#,
+      #PermissionName#,
+      #PermissionController#,
+      #PermissionAction#,
+      #Icon#,
+      #IsVisible#,
+      #IsButton#,
+      #Sort#,
+      #Description#,
+      #IsDelete#,
+      #CreateDate#
+      );
+      select @@IDENTITY as value
+    </insert>
+
+    <update id="Delete" parameterClass="int">
+      update tbpermission  set IsDelete=1 where  PermissionID=#value#
+    </update>
+
+    <update id="Update" parameterClass="Permission">
+      UPDATE tbpermission
+      SET
+      ParentID = #ParentID#,
+      PermissionName = #PermissionName#,
+      PermissionController = #PermissionController#,
+      PermissionAction = #PermissionAction#,
+      Icon = #Icon#,
+      IsVisible = #IsVisible#,
+      IsButton = #IsButton#,
+      Sort = #Sort#,
+      Description = #Description#,
+      IsDelete = #IsDelete#,
+      CreateDate = #CreateDate#
+      WHERE PermissionID = #PermissionID#
+    </update>
+
+    <select id="Select" parameterClass="map" resultClass="Permission">
+      SELECT
+      PermissionID,
+      ParentID,
+      PermissionName,
+      PermissionController,
+      PermissionAction,
+      Icon,
+      IsVisible,
+      IsButton,
+      Sort,
+      Description,
+      CreateDate
+      FROM tbpermission  where IsDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        PermissionID=#ID#
+      </isPropertyAvailable>
+      order by CreateDate desc
+      <isPropertyAvailable property="Top"  prepend="" >
+        <![CDATA[limit 0,#Top#]]>
+      </isPropertyAvailable>
+
+    </select>
+
+    <select id="SelectPager" parameterClass="map" resultClass="Permission">
+      SELECT
+      PermissionID,
+      ParentID,
+      PermissionName,
+      PermissionController,
+      PermissionAction,
+      Icon,
+      IsVisible,
+      IsButton,
+      Sort,
+      Description,
+      CreateDate
+      FROM tbpermission  where IsDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        PermissionID=#ID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="BeginRow">
+        <![CDATA[limit #BeginRow#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="EndRow">
+        <![CDATA[ , #EndRow#]]>
+      </isPropertyAvailable>
+    </select>
+  </statements>
+</sqlMap>

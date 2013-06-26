@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="SomnusLogistic.Dao.Customer"
+  xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <alias>
+    <typeAlias alias="Customer" type="SomnusLogistic.Model.Customer, SomnusLogistic.Model"/>
+  </alias>
+
+  <statements>
+    <select id="Count" parameterClass="map" resultClass="int">
+      select count(1) from customer where IsDelete=0
+      <isPropertyAvailable prepend="and" property="CustomerName">
+        <![CDATA[CustomerName like  '%$CustomerName$%']]>
+      </isPropertyAvailable>
+    </select>
+
+    <insert id="Insert" parameterClass="Customer" resultClass="int">
+      INSERT INTO `customer`
+      (
+      `CustomerName`,
+      `Address`,
+      `Linkman`,
+      `LinkPhone`,
+      `Memo`,
+      `CreateDate`,
+      Station,
+      CargoUnit,
+      Fphone,
+      UserID,
+      OperDepartmentID
+      )
+      VALUES
+      (
+      #CustomerName#
+      ,
+      #Address#
+      ,
+      #Linkman#
+      ,
+      #LinkPhone#
+      ,
+      #Memo#
+      ,
+      #CreateDate#
+      ,
+      #Station#,
+      #CargoUnit#,
+      #Fphone#,
+      #UserID#
+      ,
+      #OperDepartmentID#
+      );
+      select @@IDENTITY as value
+    </insert>
+
+    <update id="Delete" parameterClass="int">
+      update  Customer set IsDelete=1 where CustomerID=#CustomerID#
+    </update>
+
+    <update id="Update" parameterClass="Customer">
+      UPDATE `customer`
+      SET
+      `CustomerName` = #CustomerName#,
+      `Address` = #Address#,
+      `Linkman` = #Linkman#,
+      `LinkPhone` = #LinkPhone#,
+      `Memo` = #Memo#,
+      `CreateDate` = #CreateDate#,
+      `IsDelete` = #IsDelete#,
+      Station=#Station#,
+      CargoUnit=#CargoUnit#,
+      Fphone=#Fphone#,
+      UserID=#UserID#,
+      OperDepartmentID=#OperDepartmentID#
+      WHERE CustomerID=#CustomerID#
+    </update>
+
+    <select id="Select" parameterClass="map" resultClass="Customer">
+      SELECT
+      CustomerID,
+      CustomerName,
+      Address,
+      Linkman,
+      LinkPhone,
+      Memo,
+      CreateDate,
+      Station,
+      CargoUnit,
+      Fphone,
+      UserID,
+      OperDepartmentID
+      FROM customer
+      where IsDelete=0
+      <isPropertyAvailable prepend="and" property="ID">
+        <![CDATA[CustomerID = #ID#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+    </select>
+
+    <select id="SelectPager" parameterClass="map" resultClass="Customer">
+      SELECT
+      CustomerID,
+      CustomerName,
+      Address,
+      Linkman,
+      LinkPhone,
+      Memo,
+      CreateDate,
+      Station,
+      CargoUnit,
+      Fphone,
+      UserID,
+      OperDepartmentID
+      FROM customer
+      where IsDelete=0
+      <isPropertyAvailable prepend="and" property="CustomerName">
+        <![CDATA[CustomerName like  '%$CustomerName$%']]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="and" property="OperDepartmentID">
+        OperDepartmentID=#OperDepartmentID#
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="BeginRow">
+        <![CDATA[limit #BeginRow#]]>
+      </isPropertyAvailable>
+      <isPropertyAvailable prepend="AND" property="EndRow">
+        <![CDATA[ , #EndRow#]]>
+      </isPropertyAvailable>
+    </select>
+  </statements>
+
+</sqlMap>

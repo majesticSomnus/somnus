@@ -1,0 +1,148 @@
+﻿@{
+    Layout = null;
+}
+@using Webdiyer.WebControls.Mvc
+@model SomnusLogistic.Model.UserInfo
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="@Url.Content("~/Content/css/layout.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@Url.Content("~/Content/css/screen.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>
+    <style type="text/css">
+        #content
+        {
+            margin: 0em auto;
+            width: 370px;
+            padding: 10px 0 10px 0;
+            text-align: left; /* Win IE5 */
+        }
+        #loginForm
+        {
+            width: 490px;
+        }
+        .yanzhengma
+        {
+            vertical-align: bottom;
+            margin-left: 5px;
+            width: 80px;
+            height: 24px;
+        }
+        .verfiy_txt
+        {
+            width: 55px;
+            height: 20px;
+            overflow: hidden;
+            padding: 2px 2px 0px;
+            font-size: 12px;
+            color: #444444;
+        }
+    </style>
+</head>
+<body>
+    <div class="page_margins">
+        <div class="page">
+            <div id="header">
+                <div id="topnav">
+@*                    <!-- start: skip link navigation -->
+                    <a class="skip" href="#navigation" title="skip link">Skip to the navigation</a><span
+                        class="hideme">.</span> <a class="skip" href="#content" title="skip link">Skip to the
+                            content</a><span class="hideme">.</span>
+                    <!-- end: skip link navigation -->*@
+                    <span>
+                    @Html.ActionLink("联系我们", "contact", "about")
+                    </span>
+                </div>
+                <h1>
+                    物流管理系统
+                    </h1>
+                <span style="margin:10px;"><a href="http://www.do4best.com/logistic">张哥</a></span>
+            </div>
+            <div id="main">
+            <div id="content">
+                @using (Html.BeginForm("index", "login", FormMethod.Post, new { id = "loginForm", @class = "cmxform" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <fieldset>
+                        <legend>登录 </legend>
+                        @{
+                    string toUrl = ViewData["toUrl"] as string;
+                            }
+                        <input type="hidden" id="toUrl" name="toUrl" value="@toUrl" />
+                        <p>
+                            <span style="color: Red">
+                                @{
+               string msg = ViewData["errorMsg"] as string;
+                                }
+                                @msg
+                            </span>
+                        </p>
+                        <p>
+                            <label>
+                                用户名
+                            </label>
+                            @Html.TextBoxFor(m => m.UserName)
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </p>
+                        <p>
+                            <label>
+                                密码
+                            </label>
+                            @Html.PasswordFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </p>
+                        <p>
+                            <label>
+                                验证码
+                            </label>
+                            @*  <input type="text" name="_mvcCaptchaText" id="_mvcCaptchaText" class="verfiy_txt" />*@
+                            @Html.TextBoxFor(m => m.MvcCaptchaText, new { @class = "verfiy_txt" })
+                            @Html.ValidationMessageFor(m => m.MvcCaptchaText)
+                            @Html.MvcCaptcha(new MvcCaptchaOptions { DelayLoad = true, ValidationInputBoxId = "MvcCaptchaText", CaptchaImageContainerId = "captchaImage" })
+                            <span id="captchaImage" class="yanzhengma"></span>
+                        </p>
+                        <p>
+                            <input type="submit" class="submit" value="登录" />
+                        </p>
+                    </fieldset>
+                }
+            </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer_content">
+            Copyright by <a href="http://www.do4best.com/">张哥物流</a>
+            <br />
+            物流管理系统
+        </div>
+    </div>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#loginForm").validate({
+                rules: {
+                    UserName: "required",
+                    Password: "required",
+                    MvcCaptchaText: "required"
+                },
+                messages: {
+                    UserName: "用户名不能为空",
+                    Password: "密码不能为空",
+                    MvcCaptchaText: "请输入验证码"
+                }
+            });
+        });
+    </script>
+<script>
+    $(function () {
+        $('<ins id="J_RoofBanner" style="text-align:center;background:#030303;display:block;" '
+                    + 'data-spm="3.69893.123995"><a href="https://love.alipay.com/donate/itemDetail.htm?name=201304201216494301" '
+                    + 'target="_blank" title="有你救有力量！紧急救援四川雅安，刻不容缓！"><img width="990" src="http://img02.taobaocdn.com'
+                    + '/tps/i2/T1zKujXu0cXXcnC4Lh-990-100.jpg" style="vertical-align:top;display:inline"></a></ins>').insertBefore('div:first');
+    });
+    </script>
+</body>
+</html>

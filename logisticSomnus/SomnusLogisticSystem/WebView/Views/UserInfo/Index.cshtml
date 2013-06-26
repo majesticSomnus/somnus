@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "用户列表";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+@using SomnusLogistic.Model
+@using Webdiyer.WebControls.Mvc
+@model PagedList<UserInfo>
+@section Head{
+    <link rel="stylesheet" type="text/css" media="screen" href="@Url.Content("~/Content/css/page.css")")" />
+}
+@section Navigation{
+    @RenderPage("~/Views/Shared/NavigationPartial.cshtml", new { control = "userInfo" })
+}
+@section NavigationItems{
+    @RenderPage("~/Views/Shared/NavigationItemPartial.cshtml", new { control = "userInfo", action = "index" })
+}
+@{
+    Html.RenderPartial("UCJqUserInfoList", Model); 
+}
+@section Script{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script type="text/javascript">
+        function forbidOrEnableUser(userID, forbidValue) {
+            if (confirm("你确定要禁用该用户吗?") == false)
+                return;
+            $.post(urlPrefix + "userInfo/forbidUser", { "userID": userID, "forbidValue": forbidValue }, function (flag) {
+                if (flag) {
+                    alert("操作成功");
+                    location.href = urlPrefix + "userInfo";
+                } else {
+                    alert("对不起,出错了");
+                }
+            });
+        }
+
+        function deleteUser(userID) {
+            if (confirm("你确定要删除这个用户吗?") == false)
+                return;
+            $.post(urlPrefix + "userInfo/DeleteUser", { "userID": userID }, function (flag) {
+                if (flag) {
+                    alert("操作成功");
+                    location.href = urlPrefix + "userInfo";
+                } else {
+                    alert("对不起,出错了");
+                }
+            });
+        }
+    </script>
+}
